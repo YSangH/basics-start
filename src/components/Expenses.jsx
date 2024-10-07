@@ -1,5 +1,5 @@
 import ExpensiveItem from "./ExpensiveItem";
-import Card from "./Card";
+import Card from "../components/UI/Card";
 import "./Expenses.css";
 
 export default function items(props) {
