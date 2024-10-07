@@ -1,7 +1,7 @@
 import react, { useState } from "react";
 import "./ExpenseForm.css";
 
-const ExpenseForm = () => {
+const ExpenseForm = (props) => {
   // 여러개의 상태 관리 방법
   // 1. 1개의 핸들러마다 1개의 state 생성 (권장)
   const [enterTitle, setEnterTitle] = useState("");
@@ -55,13 +55,31 @@ const ExpenseForm = () => {
     }
   };
 
+  //   양식(Form) 제출 처리
+  const submitHandler = (event) => {
+    event.preventDefault();
+
+    const expenseData = {
+      title: enterTitle,
+      amount: enterAmount,
+      date: new Date(enterDate),
+    };
+
+    props.onExpense();
+    setEnterTitle("");
+    setEnterAmount("");
+    setEnterDate("");
+  };
+
   return (
-    <form>
+    <form onSubmit={submitHandler}>
+      {/* 해당 구간까지 양식 제출 처리 */}
       <div className="new-expense__controls">
         <div className="new-expense__control">
           <label>Title</label>
           <input
             type="text"
+            value={enterTitle}
             onChange={titleChangeHandler}
             // onChange={(event) =>
             //   inputChangeHandler("title", event.target.value)
@@ -72,6 +90,7 @@ const ExpenseForm = () => {
           <label>Amount</label>
           <input
             type="number"
+            value={enterAmount}
             min="0.01"
             step="0.01"
             onChange={amountChangeHandler}
@@ -84,6 +103,7 @@ const ExpenseForm = () => {
           <label>date</label>
           <input
             type="date"
+            value={enterDate}
             min="2019-01-01"
             max="2024-12-31"
             onChange={dateChangeHandler}
@@ -97,3 +117,5 @@ const ExpenseForm = () => {
     </form>
   );
 };
+
+export default ExpenseForm;
