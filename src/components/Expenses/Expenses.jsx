@@ -14,8 +14,9 @@ export default function items(props) {
   return (
     <Card className="expenses">
       <ExpensesFilter selected={filterYear} onChange={filterChangeHandler} />
-      {props.items.map((expense) => (
+      {props.items.map((expense, index) => (
         <ExpensiveItem
+          key={expense.id}
           title={expense.title}
           amount={expense.amount}
           date={expense.date}
